@@ -185,9 +185,6 @@ import ShowCaseProductsImg1 from "@/app/images/product1.png"
 import ShowCaseProductsImg2 from "@/app/images/product2.png"
 import ShowCaseProductsImg3 from "@/app/images/product3.png"
 
-co
-
-
 const products = [
   {
     image: ShowCaseProductsImg1,
