@@ -1,0 +1,53 @@
+{
+  "name": "nike-eccomerce",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "migrate": "node scripts/data-migration.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.2",
+    "@radix-ui/react-dialog": "^1.1.5",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.5",
+    "@sanity/client": "^6.27.2",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.74.1",
+    "@shadcn/ui": "^0.0.4",
+    "@stripe/stripe-js": "^5.6.0",
+    "animate.css": "^4.1.1",
+    "axios": "^1.7.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "embla-carousel-react": "^8.5.1",
+    "framer-motion": "^12.0.6",
+    "lucide": "^0.474.0",
+    "lucide-react": "^0.468.0",
+    "next": "15.0.4",
+    "next-sanity": "^9.8.51",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "sanity": "^3.74.1",
+    "styled-components": "^6.1.15",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss-animate": "^1.0.7",
+    "use-shopping-cart": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
