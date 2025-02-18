@@ -156,29 +156,62 @@ export default function ProductsPage() {
     
     // Check if product already exists in cart
     const existingProduct = cartProducts.find(item => item._id === product._id);
+   
+    if (!existingProduct) {
+       // Add the product to the cart
+            const updatedCartItems = [...cartProducts, product];
+            localStorage.setItem('cart-products', JSON.stringify(updatedCartItems));
+      
+            // Show a success toast notification
+            toast.success('Your product has been added to the cart successfully!', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            // Notify the user if the product is already in the cart
+            toast.info('This product is already in your cart!', {
+              position: 'top-right',
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+        };
+
+
+  //   if (existingProduct) {
+  //     existingProduct.quantity += 1;
+  //   } 
     
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cartProducts.push({
-        ...product,
-        quantity: 1
-      });
-    }
+    
+  //   else {
+  //     cartProducts.push({
+  //       ...product,
+  //       quantity: 1
+  //     });
+  //   }
   
-    localStorage.setItem('cart-products', JSON.stringify(cartProducts));
+  //   localStorage.setItem('cart-products', JSON.stringify(cartProducts));
     
-    toast.success("Proceed to checkout now please Wait...", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      transition: Slide,
-    });
-  };
+  //   toast.success("Proceed to checkout now please Wait...", {
+  //     position: "top-right",
+  //     autoClose: 3000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //     transition: Slide,
+  //   });
+  // };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

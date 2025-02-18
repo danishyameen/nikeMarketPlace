@@ -27,7 +27,7 @@ import product_30 from "@/app/images/products/Rectangle (28).png"
 import { StaticImageData } from 'next/image';
 
 interface Product {
-  id: number;
+  _id: number;
   image: string | StaticImageData;  // Allow both string URLs and StaticImageData
   badge?: string;
   title: string;
@@ -37,60 +37,60 @@ interface Product {
 }
 
 
-const products:Product[] = [
+const products: Product[] = [
   {
-      id: 12,
-      image: product_12,
-      badge: "Just In",
-      title: "Nike Air Force 1 LV8 3",
-      category: "Older Kids' Shoe",
-      colors: 1,
-      price: "₹ 7 495.00"
+    _id: 12,
+    image: product_12,
+    badge: "Just In",
+    title: "Nike Air Force 1 LV8 3",
+    category: "Older Kids' Shoe",
+    colors: 1,
+    price: "₹ 7 495.00"
   },
   {
-      id: 19,
-      image: product_19,
-      badge: "Just In",
-      title: "Nike Air Max SYSTM",
-      category: "Older Kids' Shoes",
-      colors: 1,
-      price: "₹ 6 495.00"
+    _id: 19,
+    image: product_19,
+    badge: "Just In",
+    title: "Nike Air Max SYSTM",
+    category: "Older Kids' Shoes",
+    colors: 1,
+    price: "₹ 6 495.00"
   },
   {
-      id: 23,
-      image: product_23,
-      badge: "Just In",
-      title: "Nike SB Zoom Janoski OG+",
-      category: "Shoes",
-      colors: 1,
-      price: "₹ 8 595.00"
+    _id: 23,
+    image: product_23,
+    badge: "Just In",
+    title: "Nike SB Zoom Janoski OG+",
+    category: "Shoes",
+    colors: 1,
+    price: "₹ 8 595.00"
   },
   {
-      id: 27,
-      image: product_27,
-      badge: "Just In",
-      title: "Nike Outdoor Play",
-      category: "Older Kids' Oversized Woven Jacket",
-      colors: 1,
-      price: "₹ 3 895.00"
+    _id: 27,
+    image: product_27,
+    badge: "Just In",
+    title: "Nike Outdoor Play",
+    category: "Older Kids' Oversized Woven Jacket",
+    colors: 1,
+    price: "₹ 3 895.00"
   },
   {
-      id: 28,
-      image: product_28,
-      badge: "Just In",
-      title: "Nike Sportswear Trend",
-      category: "Older Kids' (Girls') High-waisted Woven Shorts",
-      colors: 2,
-      price: "₹ 2 495.00"
+    _id: 28,
+    image: product_28,
+    badge: "Just In",
+    title: "Nike Sportswear Trend",
+    category: "Older Kids' (Girls') High-waisted Woven Shorts",
+    colors: 2,
+    price: "₹ 2 495.00"
   },
   {
-      id: 30,
-      image: product_30,
-      badge: "Just In",
-      title: "Nike SB Force 58",
-      category: "Skate Shoe",
-      colors: 1,
-      price: "₹5,995.00",
+    _id: 30,
+    image: product_30,
+    badge: "Just In",
+    title: "Nike SB Force 58",
+    category: "Skate Shoe",
+    colors: 1,
+    price: "₹5,995.00",
   }
 ]
 
@@ -124,18 +124,22 @@ const tags = [
 ];
 
 export default function KidsProductsPage() {
-  // Function to handle adding a product to the cart
+
+  interface CartProduct extends Product {
+    quantity: number;
+  }
+
+  // Retrieve existing cart items from localStorage
   const handleAddToCart = (product: Product) => {
-    // Retrieve existing cart items from localStorage
-    const cartItems: Product[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    const cartProducts: CartProduct[] = JSON.parse(localStorage.getItem('cart-products') || '[]');
 
-    // Check if the product already exists in the cart
-    const isProductInCart = cartItems.some((item) => item.id === product.id);
+    // Check if product already exists in cart
+    const existingProduct = cartProducts.find(item => item._id === product._id);
 
-    if (!isProductInCart) {
+    if (!existingProduct) {
       // Add the product to the cart
-      const updatedCartItems = [...cartItems, product];
-      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+      const updatedCartItems = [...cartProducts, product];
+      localStorage.setItem('cart-products', JSON.stringify(updatedCartItems));
 
       // Show a success toast notification
       toast.success('Your product has been added to the cart successfully!', {
@@ -160,6 +164,43 @@ export default function KidsProductsPage() {
       });
     }
   };
+
+  // // Function to handle adding a product to the cart
+  // const handleAddToCart = (product: Product) => {
+  //   // Retrieve existing cart items from localStorage
+  //   const cartItems: Product[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+  //   // Check if the product already exists in the cart
+  //   const isProductInCart = cartItems.some((item) => item.id === product.id);
+
+  //   if (!isProductInCart) {
+  //     // Add the product to the cart
+  //     const updatedCartItems = [...cartItems, product];
+  //     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+  //     // Show a success toast notification
+  //     toast.success('Your product has been added to the cart successfully!', {
+  //       position: 'top-right',
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   } else {
+  //     // Notify the user if the product is already in the cart
+  //     toast.info('This product is already in your cart!', {
+  //       position: 'top-right',
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //   }
+  // };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
@@ -235,7 +276,7 @@ export default function KidsProductsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product, index) => (
               <article
-                key={product.id}
+                key={product._id}
                 className="group relative bg-white p-4 rounded-lg border border-gray-200 
                       hover:shadow-xl transition-shadow duration-300 ease-in-out
                       animate-slide-up"

@@ -95,42 +95,81 @@ interface Product {
       fetchProducts();
     }, []);
   
-    // Function to handle adding a product to the cart
-    const handleAddToCart = (product: Product) => {
-      // Retrieve existing cart items from localStorage
-      const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    interface CartProduct extends Product {
+            quantity: number;
+          }
+        
+          const handleAddToCart = (product: Product) => {
+            const cartProducts: CartProduct[] = JSON.parse(localStorage.getItem('cart-products') || '[]');
+            
+            // Check if product already exists in cart
+            const existingProduct = cartProducts.find(item => item._id === product._id);
+           
+            if (!existingProduct) {
+                    // Add the product to the cart
+                    const updatedCartItems = [...cartProducts, product];
+                    localStorage.setItem('cart-products', JSON.stringify(updatedCartItems));
+              
+                    // Show a success toast notification
+                    toast.success('Your product has been added to the cart successfully!', {
+                      position: 'top-right',
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  } else {
+                    // Notify the user if the product is already in the cart
+                    toast.info('This product is already in your cart!', {
+                      position: 'top-right',
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  }
+                };
+
+    // // Function to handle adding a product to the cart
+    // const handleAddToCart = (product: Product) => {
+    //   // Retrieve existing cart items from localStorage
+    //   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
   
-      // Check if the product already exists in the cart
-      const isProductInCart = cartItems.some((item: Product) => item._id === product._id);
+    //   // Check if the product already exists in the cart
+    //   const isProductInCart = cartItems.some((item: Product) => item._id === product._id);
   
-      if (!isProductInCart) {
-        // Add the product to the cart
-        const updatedCartItems = [...cartItems, product];
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    //   if (!isProductInCart) {
+    //     // Add the product to the cart
+    //     const updatedCartItems = [...cartItems, product];
+    //     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   
-        // Show a success toast notification
-        toast.success('Your product has been added to the cart successfully!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        // Notify the user if the product is already in the cart
-        toast.info('This product is already in your cart!', {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    };
+    //     // Show a success toast notification
+    //     toast.success('Your product has been added to the cart successfully!', {
+    //       position: 'top-right',
+    //       autoClose: 3000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //   } else {
+    //     // Notify the user if the product is already in the cart
+    //     toast.info('This product is already in your cart!', {
+    //       position: 'top-right',
+    //       autoClose: 3000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //   }
+    // };
   
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
